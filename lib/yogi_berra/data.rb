@@ -9,12 +9,21 @@ module YogiBerra
         data[:session] = parse_session(session) if session
         data.merge!(environment)
       end
+
+
       client["caught_exceptions"].insert(data)
     end
 
     def self.parse_exception(notice)
+      project = if Rails::VERSION::STRING[/3.[^0]/]
+        Rails.application.class.name.split("::").first
+      else
+        Rails.root.basename.to_s
+      end
+
       data_hash = {
-        :error_class => notice.error_class,
+        :project       => project,
+        :error_class   => notice.error_class,
         :error_message => notice.error_message
       }
       if notice.backtrace.lines.any?
