@@ -15,11 +15,12 @@ module YogiBerra
     end
 
     def self.parse_exception(notice)
-      project = if Rails::VERSION::STRING[/3.[^0]/]
+      project = if Rails.version.to_f >= 3.0
         Rails.application.class.name.split("::").first
       else
         Rails.root.basename.to_s
       end
+
       data_hash = {
         :project       => project,
         :error_class   => notice.error_class,
