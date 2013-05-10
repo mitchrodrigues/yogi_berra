@@ -16,7 +16,7 @@ module YogiBerra
 
     def self.parse_exception(notice)
       project = if Rails.version.to_f >= 3.0
-        Rails.application.class.name.split("::").first
+        Rails.application.class.name.split("::").first.downcase
       else
         Rails.root.basename.to_s
       end
