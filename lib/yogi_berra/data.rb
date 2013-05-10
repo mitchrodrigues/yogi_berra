@@ -20,7 +20,6 @@ module YogiBerra
       else
         Rails.root.basename.to_s
       end
-
       data_hash = {
         :project       => project,
         :error_class   => notice.error_class,
